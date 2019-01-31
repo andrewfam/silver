@@ -103,19 +103,24 @@ MEDIA_URL = '/app_media/'
 STATIC_ROOT = PROJECT_ROOT + '/app_static/'
 STATIC_URL = '/app_static/'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
 SECRET_KEY = 'secret'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'silver.api.pagination.LinkHeaderPagination'
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'silver.api.pagination.LinkHeaderPagination',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
 HOOK_EVENTS = _HOOK_EVENTS
